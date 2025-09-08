@@ -1,0 +1,45 @@
+body {
+  font-family: Arial, sans-serif;
+}
+
+.menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background: pink;
+}
+
+.menu > li {
+  display: inline-block;
+  position: relative;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.menu > li:hover {
+  background: lightcoral;
+  color: white;
+}
+.dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: rgb(80, 79, 79);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border: 1px solid #000000;
+}
+.menu > li:hover .dropdown {
+  display: block;
+}
+
+.dropdown li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.dropdown li:hover {
+  background: lightgray;
+}
