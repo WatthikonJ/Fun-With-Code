@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>It's over 9000</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 24px; }
+    .calc { display: flex; gap: 8px; align-items: center; }
+    input[type="text"] { width: 120px; padding: 6px; }
+    select, button { padding: 6px 10px; }
+  </style>
+</head>
+<body>
+  <h1>It's over 9000</h1>
+
+  <form id="form" class="calc">
+    <input id="left"  type="text" placeholder="left (>=0)" />
+    <select id="op" aria-label="operator">
+      <option value="+">+</option>
+      <option value="-">-</option>
+      <option value="*">*</option>
+      <option value="/">/</option>
+      <option value="%">%</option>
+    </select>
+    <input id="right" type="text" placeholder="right (>=0)" />
+    <input type="submit" value="Try me!" />
+  </form>
+
+  <script>
+    setInterval(() => alert('Please, use me...'), 30000);
+
+    const form  = document.getElementById('form');
+    const left  = document.getElementById('left');
+    const right = document.getElementById('right');
+    const opSel = document.getElementById('op');
+
+    const isNonNegInt = s => /^\d+$/.test(s);
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const aStr = left.value.trim();
+      const bStr = right.value.trim();
+
+      if (!isNonNegInt(aStr) || !isNonNegInt(bStr)) {
+        alert('Error :(');
+        console.log('Error :(');
+        return;
+      }
+
+      const a = Number(aStr);
+      const b = Number(bStr);
+      const op = opSel.value;
+      if ((op === '/' || op === '%') && b === 0) {
+        alert("It's over 9000!");
+        console.log("It's over 9000!");
+        return;
+      }
+
+      let result;
+      switch (op) {
+        case '+': result = a + b; break;
+        case '-': result = a - b; break;
+        case '*': result = a * b; break;
+        case '/': result = a / b; break;
+        case '%': result = a % b; break;
+      }
+
+      alert(String(result));
+      console.log(result);
+    });
+  </script>
+</body>
+</html>
