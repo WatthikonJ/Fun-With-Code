@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>To do or not to do (jQuery)</title>
+  <style>
+    body{font-family:Arial, sans-serif;margin:24px}
+    #ft_list{margin-top:20px;border:1px solid #ccc;padding:10px;min-height:100px;width:320px}
+    .todo{background:#f5f5f5;padding:8px;margin:5px 0;cursor:pointer;border-radius:4px}
+    .todo:hover{background:#e2e2e2}
+    button{padding:6px 12px}
+  </style>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+  <button id="newBtn">New</button>
+  <div id="ft_list"></div>
+
+  <script>
+    const KEY = 'todos';
+    const getTodos  = () => JSON.parse(localStorage.getItem(KEY) || '[]');
+    const saveTodos = (arr) => localStorage.setItem(KEY, JSON.stringify(arr));
+    function render(){
+      const $list = $("#ft_list").empty();
+      const todos = getTodos();
+      todos.forEach((t, i) => {
+        const $item = $("<div>").addClass("todo").text(t);
+        $item.on("click", function(){
+          if (confirm("Remove this task?")) {
+            todos.splice(i,1);
+            saveTodos(todos);
+            render();
+          }
+        });
+        $list.prepend($item);
+      });
+    }
+    $("#newBtn").on("click", function(){
+      const text = prompt("Enter a new TO DO:");
+      if (text && text.trim() !== ""){
+        const todos = getTodos();
+        todos.push(text.trim());
+        saveTodos(todos);
+        render();
+      }
+    });
+    $(render);
+  </script>
+</body>
+</html>
